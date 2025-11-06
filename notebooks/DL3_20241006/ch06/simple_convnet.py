@@ -1,14 +1,17 @@
 # coding: utf-8          
 import sys, os
-current_dir = os.path.dirname(__file__)
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+
+# --- 3~5번째 줄을 #으로 주석 처리합니다 ---
+# current_dir = os.path.dirname(__file__)
+# parent_dir = os.path.dirname(current_dir)
+# sys.path.append(parent_dir)
+# --- 여기까지 ---
 
 import pickle
 import numpy as np
 from collections import OrderedDict
-from common.layers import *
-from common.gradient import numerical_gradient
+from common.layers import * # (이 코드는 그대로 둡니다)
+from common.gradient import numerical_gradient # (이 코드는 그대로 둡니다)
 
 
 class SimpleConvNet:
@@ -149,14 +152,14 @@ class SimpleConvNet:
 
         return grads
         
-    def save_params(self, file_name="params.pkl"):
+    def save_params(self, file_name="C:\Users\EL90\OneDrive - (주)엘릭서\MS AI 8기\수업자료\workspace\DL-Excersize\notebooks\DL3_20241006\ch06\params.pkl"):
         params = {}
         for key, val in self.params.items():
             params[key] = val
         with open(file_name, 'wb') as f:
             pickle.dump(params, f)
 
-    def load_params(self, file_name="params.pkl"):
+    def load_params(self, file_name="C:\Users\EL90\OneDrive - (주)엘릭서\MS AI 8기\수업자료\workspace\DL-Excersize\notebooks\DL3_20241006\ch06\params.pkl"):
         with open(file_name, 'rb') as f:
             params = pickle.load(f)
         for key, val in params.items():

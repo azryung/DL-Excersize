@@ -1,0 +1,37 @@
+절대참조 & 최상위폴더로 경로 강제 이동 코드
+
+import sys, os
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -----------------------------------------------------------
+# [1] 현재 노트북 폴더의 절대 경로를 기준으로 합니다.
+current_dir = os.getcwd() 
+
+# [2] 'DL-Excersize' (최상위 루트) 경로를 계산합니다.
+# (ch06 -> DL3... -> notebooks -> DL-Excersize)
+# os.path.join을 사용하여 세 번 상위 폴더로 이동합니다.
+project_root = os.path.abspath(os.path.join(current_dir, '..', '..', '..', '..'))
+
+# [3] 최상위 경로를 sys.path에 추가하여 'dataset'과 'common' 폴더를 찾게 합니다.
+if project_root not in sys.path:
+    sys.path.append(project_root)
+    print(f"프로젝트 루트 경로 추가됨: {project_root}")
+
+# [4] (선택적) 현재 폴더(ch06)를 추가하여 simple_convnet도 찾게 합니다.
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
+# -----------------------------------------------------------
+
+# 이제 파이썬은 project_root 경로에서 'dataset' 폴더를 찾아 들어갑니다.
+try:
+    from dataset.mnist import load_mnist
+    from simple_convnet import SimpleConvNet # 같은 폴더의 파일
+    from common.trainer import Trainer 
+
+    print("✅ 모든 모듈 임포트 성공했습니다!")
+
+except ModuleNotFoundError as e:
+    print(f"❌ 임포트 실패: {e}")
+    print("경로가 꼬였을 수 있으니, 위에 출력된 '프로젝트 루트 경로'를 확인해주세요.")
